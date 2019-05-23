@@ -1,22 +1,13 @@
 package com.tcs.PIT;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class PIT_Participants_Details {
 	@EmbeddedId
 	private PIT_Participants_Details_PK pit_participants_details_id;
-	@Column(nullable = false,length = 100)
 	private boolean completion_status;
-	
-	@ManyToOne
-    @JoinColumn(name = "employee_id")
-	private Employee_details participant;
 	
 	public PIT_Participants_Details() {
 		

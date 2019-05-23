@@ -22,8 +22,8 @@ public class Employee_details {
 	private String branch_name;
 	private String department;
 	
-	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-	private List<PIT_Details> pit_details;
+//	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+//	private List<PIT_Details> pit_details;
 	
 	@OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
 	private List<PIT_Faculty_Details> pit_faculty_details;

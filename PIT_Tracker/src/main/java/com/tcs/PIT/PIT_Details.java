@@ -4,9 +4,8 @@ package com.tcs.PIT;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 
 
@@ -15,9 +14,6 @@ public class PIT_Details {
 
 	@EmbeddedId
 	private PIT_Details_PK pit_details_id;
-	
-	@Column(length=20)
-	private Integer faculty_id;
 	
 	private Integer ievolve_id;
 	
@@ -30,23 +26,12 @@ public class PIT_Details {
 	@Column(length=100)
 	private String technology;
 	
-	@ManyToOne
-    @JoinColumn(name = "employee_id")
-	private Employee_details employee;
+	@OneToOne
+    @JoinColumn(name = "ievolve_id", referencedColumnName = "ievolveId")
+	private Ievolve_Course_Details course;	
 	
 	public PIT_Details() {
 		
-	}
-	
-	public PIT_Details(PIT_Details_PK pit_details_id, Integer faculty_id, Integer ievolve_id, String topic_name,
-			String area, String technology) {
-		super();
-		this.pit_details_id = pit_details_id;
-		this.faculty_id = faculty_id;
-		this.ievolve_id = ievolve_id;
-		this.topic_name = topic_name;
-		this.area = area;
-		this.technology = technology;
 	}
 	
 	public PIT_Details_PK getPit_details_id() {
@@ -56,12 +41,6 @@ public class PIT_Details {
 		this.pit_details_id = pit_details_id;
 	}
 	
-	public Integer getFaculty_id() {
-		return faculty_id;
-	}
-	public void setFaculty_id(Integer faculty_id) {
-		this.faculty_id = faculty_id;
-	}
 	public Integer getIevolve_id() {
 		return ievolve_id;
 	}

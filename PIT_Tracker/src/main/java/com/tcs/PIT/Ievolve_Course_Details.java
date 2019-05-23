@@ -1,8 +1,10 @@
 package com.tcs.PIT;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +19,10 @@ public class Ievolve_Course_Details {
 	private Integer offering_id;
 	@Column(length=20)
 	private String type;
+	
+	@OneToOne(mappedBy = "course", cascade = CascadeType.ALL)
+	private PIT_Details pit_details;
+	
 	public Integer getIevolveId() {
 		return ievolveId;
 	}
