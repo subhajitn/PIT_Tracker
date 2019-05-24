@@ -15,8 +15,6 @@ public class PIT_Details {
 	@EmbeddedId
 	private PIT_Details_PK pit_details_id;
 	
-	private Integer ievolve_id;
-	
 	@Column(length=100)
 	private String topic_name;
 	
@@ -30,23 +28,13 @@ public class PIT_Details {
     @JoinColumn(name = "ievolve_id", referencedColumnName = "ievolveId")
 	private Ievolve_Course_Details course;	
 	
-	public PIT_Details() {
-		
-	}
-	
 	public PIT_Details_PK getPit_details_id() {
 		return pit_details_id;
 	}
 	public void setPit_details_id(PIT_Details_PK pit_details_id) {
 		this.pit_details_id = pit_details_id;
-	}
+	}	
 	
-	public Integer getIevolve_id() {
-		return ievolve_id;
-	}
-	public void setIevolve_id(Integer ievolve_id) {
-		this.ievolve_id = ievolve_id;
-	}
 	public String getTopic_name() {
 		return topic_name;
 	}

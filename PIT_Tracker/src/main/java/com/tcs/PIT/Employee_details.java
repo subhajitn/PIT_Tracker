@@ -25,10 +25,10 @@ public class Employee_details {
 //	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
 //	private List<PIT_Details> pit_details;
 	
-	@OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pit_faculty_details_id.faculty", cascade = CascadeType.ALL)
 	private List<PIT_Faculty_Details> pit_faculty_details;
 	
-	@OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pit_participants_details_id.participant", cascade = CascadeType.ALL)
 	private List<PIT_Participants_Details> pit_participants_details;
 	
 	public Integer getEmployee_id() {

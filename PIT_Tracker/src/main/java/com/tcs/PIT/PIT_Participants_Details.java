@@ -9,17 +9,6 @@ public class PIT_Participants_Details {
 	private PIT_Participants_Details_PK pit_participants_details_id;
 	private boolean completion_status;
 	
-	public PIT_Participants_Details() {
-		
-	}
-	
-	public PIT_Participants_Details(PIT_Participants_Details_PK pit_participants_details_id,
-			boolean completion_status) {
-		super();
-		this.pit_participants_details_id = pit_participants_details_id;
-		this.completion_status = completion_status;
-	}
-	
 	public boolean isCompletion_status() {
 		return completion_status;
 	}
