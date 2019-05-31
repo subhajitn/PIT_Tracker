@@ -1,4 +1,4 @@
-package com.tcs.PIT;
+package com.tcs.PIT.model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tcs.PIT;
+package com.tcs.PIT.model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.tcs.PIT;
+package com.tcs.PIT.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

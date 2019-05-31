@@ -1,10 +1,12 @@
-package com.tcs.PIT;
+package com.tcs.PIT.model;
 
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -24,9 +26,13 @@ public class PIT_Details {
 	@Column(length=100)
 	private String technology;
 	
-	@OneToOne
+	@ManyToOne
     @JoinColumn(name = "ievolve_id", referencedColumnName = "ievolveId")
 	private Ievolve_Course_Details course;	
+	
+	/*private Integer faculty_id;
+	
+	private Integer participant_id;*/
 	
 	public PIT_Details_PK getPit_details_id() {
 		return pit_details_id;
@@ -53,4 +59,22 @@ public class PIT_Details {
 	public void setTechnology(String technology) {
 		this.technology = technology;
 	}
+	public Ievolve_Course_Details getCourse() {
+		return course;
+	}
+	public void setCourse(Ievolve_Course_Details course) {
+		this.course = course;
+	}
+	/*public Integer getFaculty_id() {
+		return faculty_id;
+	}
+	public void setFaculty_id(Integer faculty_id) {
+		this.faculty_id = faculty_id;
+	}
+	public Integer getParticipant_id() {
+		return participant_id;
+	}
+	public void setParticipant_id(Integer participant_id) {
+		this.participant_id = participant_id;
+	}*/
 }

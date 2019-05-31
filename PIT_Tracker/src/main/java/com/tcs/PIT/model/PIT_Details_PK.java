@@ -1,4 +1,4 @@
-package com.tcs.PIT;
+package com.tcs.PIT.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,25 +9,27 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class PIT_Details_PK implements Serializable{
 	private static final long serialVersionUID = 1L;	
-	private Integer pit_id;
+	private long pit_id;
+	
 	@Column(length=20)
 	private String start_time;
+	
 	@Column(length=20)
 	private String end_time;
 	
 	public PIT_Details_PK() {
 		super();
 	}
-	public PIT_Details_PK(Integer pit_id, String start_time, String end_time) {
+	public PIT_Details_PK(long pit_id, String start_time, String end_time) {
 		super();
 		this.pit_id = pit_id;
 		this.start_time = start_time;
 		this.end_time = end_time;
 	}
-	public Integer getPit_id() {
+	public long getPit_id() {
 		return pit_id;
 	}
-	public void setPit_id(Integer pit_id) {
+	public void setPit_id(long pit_id) {
 		this.pit_id = pit_id;
 	}
 	public String getStart_time() {
