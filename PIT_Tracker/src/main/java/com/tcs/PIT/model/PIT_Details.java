@@ -4,18 +4,28 @@ package com.tcs.PIT.model;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 
 @Entity
+@Table(name="PIT_DETAILS")
 public class PIT_Details {
 
-	@EmbeddedId
-	private PIT_Details_PK pit_details_id;
+	/*@EmbeddedId
+	private PIT_Details_PK pit_details_id;*/
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pit_generator")
+	@SequenceGenerator(name="pit_generator", sequenceName = "PIT_SEQ", allocationSize=1)
+	private Long pit_id;
 	
 	@Column(length=100)
 	private String topic_name;
@@ -33,14 +43,14 @@ public class PIT_Details {
 	/*private Integer faculty_id;
 	
 	private Integer participant_id;*/
+		
 	
-	public PIT_Details_PK getPit_details_id() {
-		return pit_details_id;
+	public Long getPit_id() {
+		return pit_id;
 	}
-	public void setPit_details_id(PIT_Details_PK pit_details_id) {
-		this.pit_details_id = pit_details_id;
-	}	
-	
+	public void setPit_id(Long pit_id) {
+		this.pit_id = pit_id;
+	}
 	public String getTopic_name() {
 		return topic_name;
 	}

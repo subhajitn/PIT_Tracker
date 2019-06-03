@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tcs.PIT.model.Employee_details;
+import com.tcs.PIT.model.Ievolve_Course_Details;
 import com.tcs.PIT.model.PIT_Details;
 import com.tcs.PIT.model.PIT_Details_PK;
 import com.tcs.PIT.model.PIT_Faculty_Details;
 import com.tcs.PIT.model.PIT_Faculty_Details_PK;
 import com.tcs.PIT.model.PIT_Participants_Details;
 import com.tcs.PIT.model.PIT_Participants_Details_PK;
+import com.tcs.PIT.repository.CourseRepository;
+import com.tcs.PIT.repository.EmployeeRepository;
 import com.tcs.PIT.repository.FacultyRepository;
 import com.tcs.PIT.repository.ParticipantRepository;
 import com.tcs.PIT.repository.PitDetailsRepository;
@@ -33,6 +36,33 @@ public class PITController {
 		private ParticipantRepository participantRepo;
 		@Autowired
 		private PitDetailsRepository pitDetailsRepo;
+		@Autowired
+		private EmployeeRepository employeeRepo;
+		@Autowired
+		private CourseRepository courseRepo;
+		
+		
+		//employee services
+		@GetMapping("/getAllEmployees")
+		public List<Employee_details> findAllEmployees(){
+			return employeeRepo.findAll();
+		}
+		
+		@PostMapping("/addEmployee")
+		public Employee_details createEmployee(@RequestBody Employee_details employee) {
+			return employeeRepo.save(employee);
+		}
+		
+		//course services
+		@GetMapping("/getAllCourses")
+		public List<Ievolve_Course_Details> findAllCourses(){
+			return courseRepo.findAll();
+		}
+		
+		@PostMapping("/addCourse")
+		public Ievolve_Course_Details createCourse(@RequestBody Ievolve_Course_Details course) {
+			return courseRepo.save(course);
+		}
 		
 		
 		//faculty services
@@ -40,19 +70,28 @@ public class PITController {
 		public List<PIT_Faculty_Details> getAllFaculty() {
 			return facultyRepo.findAll();
 		}	
-		@GetMapping("/allFaculty/{pit_id}/{faculty_id}")
-		public PIT_Faculty_Details getAllFacultyById(@PathVariable("pit_id") long pit_id,@PathVariable("faculty_id") int faculty_id) {
-			PIT_Faculty_Details_PK pk=new PIT_Faculty_Details_PK();
+		@GetMapping("/allFaculty/{faculty_id}")
+		public List<PIT_Faculty_Details> getAllFacultyById(@PathVariable("faculty_id") int faculty_id) {
 			Employee_details faculty=new Employee_details();
 			faculty.setEmployee_id(faculty_id);
-			pk.setPit_id(pit_id);
-			pk.setFaculty(faculty);
-			Optional<PIT_Faculty_Details> facultyDetails=facultyRepo.findById(pk);
-			return facultyDetails.get();
+			return facultyRepo.findByFaculty(faculty);
 		}
 		@GetMapping("/allFacultyByPitId/{pit_id}")
-		public List<PIT_Faculty_Details> getAllFacultyByPitId(@PathVariable("pit_id") long pit_id) {
+		public List<PIT_Faculty_Details> getAllFacultyByPitId(@PathVariable("pit_id") Long pit_id) {
 			return facultyRepo.findAllByPit_id(pit_id);
+		}
+		
+		@PostMapping("/submitPitFacultyDetails")
+		public List<PIT_Faculty_Details> submitPitFaculty(@RequestBody List<PIT_Faculty_Details> facultyDetails) {
+
+			return facultyRepo.saveAll(facultyDetails);
+
+		}
+		@PostMapping("/submitOnePitFacultyDetails")
+		public PIT_Faculty_Details submitOnePitFaculty(@RequestBody PIT_Faculty_Details facultyDetail) {
+
+			return facultyRepo.save(facultyDetail);
+
 		}
 				
 		//participant services
@@ -60,90 +99,37 @@ public class PITController {
 		public List<PIT_Participants_Details> getAllParticipants() {
 			return participantRepo.findAll();
 		}		
-		@GetMapping("/allParticipants/{pit_id}/{participant_id}")
-		public PIT_Participants_Details getAllParticipantsById(@PathVariable("pit_id") long pit_id,@PathVariable("participant_id") int participant_id) {
-			PIT_Participants_Details_PK pk=new PIT_Participants_Details_PK();
+		@GetMapping("/allParticipants/{participant_id}")
+		public List<PIT_Participants_Details> getAllParticipantsById(@PathVariable("participant_id") int participant_id) {
 			Employee_details participant=new Employee_details();
 			participant.setEmployee_id(participant_id);
-			pk.setPit_id(pit_id);
-			pk.setParticipant(participant);
-			Optional<PIT_Participants_Details> participantDetails=participantRepo.findById(pk);
-			return participantDetails.get();
+			return participantRepo.findByParticipant(participant);
 		}
 		@GetMapping("/allParticipantByPitId/{pit_id}")
-		public List<PIT_Participants_Details> getAllParticipantByPitId(@PathVariable("pit_id") long pit_id) {
+		public List<PIT_Participants_Details> getAllParticipantByPitId(@PathVariable("pit_id") Long pit_id) {
 			return participantRepo.findAllByPit_id(pit_id);
+		}
+		@PostMapping("/submitPitParticipantDetails")
+		public List<PIT_Participants_Details> submitPitParticipants(@RequestBody List<PIT_Participants_Details> participantDetails) {
+
+			return participantRepo.saveAll(participantDetails);
+
 		}
 		
 		
 		//pit_details services
 		@PostMapping("/submitPit")
-		public ResponseEntity<Object> submitPit(@RequestBody PIT_Details pit) {
-			long pit_id = 0;
-			if(null!=pit && null!=pit.getPit_details_id()) {
-				pit_id=pitDetailsRepo.getNextPitId();
-				pit.getPit_details_id().setPit_id(pit_id);
-			}
-			PIT_Details newPit = pitDetailsRepo.save(pit);
-			
-			//inserting into faculty details
-			/*PIT_Faculty_Details facultyDetails=new PIT_Faculty_Details();
-			PIT_Faculty_Details_PK facultyPK =new PIT_Faculty_Details_PK();
-			Employee_details faculty=new Employee_details();
-			faculty.setEmployee_id(pit.getFaculty_id());
-			facultyPK.setFaculty(faculty);
-			facultyPK.setPit_id(pit_id);
-			facultyDetails.setPit_faculty_details_id(facultyPK);
-			PIT_Faculty_Details addFaculty=facultyRepo.save(facultyDetails);*/
-			
-			//inserting into participant details
-			/*PIT_Participants_Details particpantDetails=new PIT_Participants_Details();
-			PIT_Participants_Details_PK participantPK =new PIT_Participants_Details_PK();
-			Employee_details participant=new Employee_details();
-			participant.setEmployee_id(pit.getParticipant_id());
-			participantPK.setParticipant(participant);
-			participantPK.setPit_id(pit_id);
-			particpantDetails.setPit_participants_details_id(participantPK);
-			PIT_Participants_Details addParticpant=participantRepo.save(particpantDetails);*/
-			
-			String responseHeader="PIT_ID : "+newPit.getPit_details_id().getPit_id()/*+
-								  "Faculty : "+addFaculty.getPit_faculty_details_id().getFaculty().getEmployee_id()+
-								  "Participant : "+addParticpant.getPit_participants_details_id().getParticipant().getEmployee_id()*/;
+		public PIT_Details submitPit(@RequestBody PIT_Details pit) {
 
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(responseHeader).toUri();
-
-			return ResponseEntity.created(location).build();
+			return pitDetailsRepo.save(pit);
 
 		}		
 		@PostMapping("/extendPit")
 		public ResponseEntity<Object> extendPit(@RequestBody PIT_Details pit) {
 			
-			PIT_Details extendPit = pitDetailsRepo.save(pit);
+			PIT_Details extendPit = pitDetailsRepo.save(pit);			
 			
-			//inserting into faculty details
-			/*PIT_Faculty_Details facultyDetails=new PIT_Faculty_Details();
-			PIT_Faculty_Details_PK facultyPK =new PIT_Faculty_Details_PK();
-			Employee_details faculty=new Employee_details();
-			faculty.setEmployee_id(pit.getFaculty_id());
-			facultyPK.setFaculty(faculty);
-			facultyPK.setPit_id(pit.getPit_details_id().getPit_id());
-			facultyDetails.setPit_faculty_details_id(facultyPK);
-			PIT_Faculty_Details addFaculty=facultyRepo.save(facultyDetails);*/
-			
-			//inserting into participant details
-			/*PIT_Participants_Details particpantDetails=new PIT_Participants_Details();
-			PIT_Participants_Details_PK participantPK =new PIT_Participants_Details_PK();
-			Employee_details participant=new Employee_details();
-			participant.setEmployee_id(pit.getParticipant_id());
-			participantPK.setParticipant(participant);
-			participantPK.setPit_id(pit.getPit_details_id().getPit_id());
-			particpantDetails.setPit_participants_details_id(participantPK);
-			PIT_Participants_Details addParticpant=participantRepo.save(particpantDetails);*/
-			
-			String responseHeader="PIT_ID : "+extendPit.getPit_details_id().getPit_id()/*+
-					  "Faculty : "+addFaculty.getPit_faculty_details_id().getFaculty().getEmployee_id()+
-					  "Participant : "+addParticpant.getPit_participants_details_id().getParticipant().getEmployee_id()*/;
+			String responseHeader="PIT_ID : "+extendPit.getPit_id();
 
 
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -159,8 +145,9 @@ public class PITController {
 		}	
 		
 		@GetMapping("/searchByPit/{pit_id}")
-		public List<PIT_Details> getPitDetailsByPitId(@PathVariable("pit_id") long pit_id){
-			return pitDetailsRepo.findAllByPit_id(pit_id);
+		public PIT_Details getPitDetailsByPitId(@PathVariable("pit_id") Long pit_id){
+			Optional<PIT_Details> pitDetails=pitDetailsRepo.findById(pit_id);
+			return pitDetails.get();
 		}
 		
 		

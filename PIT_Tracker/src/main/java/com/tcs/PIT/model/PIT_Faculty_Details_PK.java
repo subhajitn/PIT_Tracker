@@ -3,6 +3,7 @@ package com.tcs.PIT.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,25 +12,31 @@ import javax.persistence.ManyToOne;
 public class PIT_Faculty_Details_PK implements Serializable{
 	private static final long serialVersionUID = 1L;	
 	private long pit_id;
-		
-	@ManyToOne
-    @JoinColumn(name = "faculty_id", referencedColumnName = "employee_id")
-	private Employee_details faculty;
 	
+	@Column(length=20)
+	private String start_time;
+	
+	@Column(length=20)
+	private String end_time;	
+	
+	public String getStart_time() {
+		return start_time;
+	}
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
+	}
+	public String getEnd_time() {
+		return end_time;
+	}
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
 	public long getPit_id() {
 		return pit_id;
 	}
 	public void setPit_id(long pit_id) {
 		this.pit_id = pit_id;
 	}
-
-
-	public Employee_details getFaculty() {
-		return faculty;
-	}
-	public void setFaculty(Employee_details faculty) {
-		this.faculty = faculty;
-	}	
 	
 	@Override
 	public int hashCode() {
