@@ -14,5 +14,6 @@ public interface ParticipantRepository extends JpaRepository<PIT_Participants_De
 	@Query("SELECT u FROM PIT_Participants_Details u WHERE u.pit_participants_details_id.pit_id = :pit_id")
 	List<PIT_Participants_Details> findAllByPit_id(@Param("pit_id") long pit_id);
 	
-	List<PIT_Participants_Details> findByParticipant(Employee_details participant);
+	//List<PIT_Participants_Details> findByParticipant(Employee_details participant);
+	List<PIT_Participants_Details> findByParticipant(String participant);
 }

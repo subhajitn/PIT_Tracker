@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class PIT_Faculty_Details{
 	
@@ -13,6 +15,7 @@ public class PIT_Faculty_Details{
 	
 	@ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "employee_id")
+	//@JsonIgnore
 	private Employee_details faculty;	
 	
 	public PIT_Faculty_Details_PK getPit_faculty_details_id() {
@@ -23,9 +26,11 @@ public class PIT_Faculty_Details{
 		this.pit_faculty_details_id = pit_faculty_details_id;
 	}	
 	
+	//@JsonIgnore
 	public Employee_details getFaculty() {
 		return faculty;
 	}
+	//@JsonIgnore
 	public void setFaculty(Employee_details faculty) {
 		this.faculty = faculty;
 	}

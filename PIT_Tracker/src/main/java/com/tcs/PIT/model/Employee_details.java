@@ -9,9 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="EMPLOYEE_DETAILS")
 public class Employee_details {
+	
 	@Id
 	private Integer employee_id;
 	
@@ -21,21 +24,20 @@ public class Employee_details {
 	private String employee_name;
 	@Column(length=30)
 	private String email;
-	@Column
-	private boolean activity_flag;
+	@Column(length=1)
+	private String activity_flag;
 	@Column(length=20)
 	private String branch_name;
 	@Column(length=10)
 	private String department;
-	
-//	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-//	private List<PIT_Details> pit_details;
-	
-	@OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
+		
+	/*@OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<PIT_Faculty_Details> pit_faculty_details;
 	
 	@OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
-	private List<PIT_Participants_Details> pit_participants_details;
+	@JsonIgnore
+	private List<PIT_Participants_Details> pit_participants_details;*/
 
 	public Integer getEmployee_id() {
 		return employee_id;
@@ -69,11 +71,11 @@ public class Employee_details {
 		this.email = email;
 	}
 
-	public boolean isActivity_flag() {
+	public String getActivity_flag() {
 		return activity_flag;
 	}
 
-	public void setActivity_flag(boolean activity_flag) {
+	public void setActivity_flag(String activity_flag) {
 		this.activity_flag = activity_flag;
 	}
 
@@ -93,21 +95,22 @@ public class Employee_details {
 		this.department = department;
 	}
 
+	/*@JsonIgnore
 	public List<PIT_Faculty_Details> getPit_faculty_details() {
 		return pit_faculty_details;
 	}
-
+	@JsonIgnore
 	public void setPit_faculty_details(List<PIT_Faculty_Details> pit_faculty_details) {
 		this.pit_faculty_details = pit_faculty_details;
 	}
-
+	@JsonIgnore
 	public List<PIT_Participants_Details> getPit_participants_details() {
 		return pit_participants_details;
 	}
-
+	@JsonIgnore
 	public void setPit_participants_details(List<PIT_Participants_Details> pit_participants_details) {
 		this.pit_participants_details = pit_participants_details;
-	}
+	}*/
 	
 	
 }

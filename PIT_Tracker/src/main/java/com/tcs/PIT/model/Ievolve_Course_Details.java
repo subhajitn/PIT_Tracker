@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="IEVOLVE_COURSE_DETAILS")
 public class Ievolve_Course_Details {
@@ -22,15 +24,18 @@ public class Ievolve_Course_Details {
 	@Column(length=20)
 	private String type;
 	
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	/*@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<PIT_Details> pit_details;
 	
+	@JsonIgnore
 	public List<PIT_Details> getPit_details() {
 		return pit_details;
 	}
+	@JsonIgnore
 	public void setPit_details(List<PIT_Details> pit_details) {
 		this.pit_details = pit_details;
-	}
+	}*/
 	public Integer getIevolveId() {
 		return ievolveId;
 	}

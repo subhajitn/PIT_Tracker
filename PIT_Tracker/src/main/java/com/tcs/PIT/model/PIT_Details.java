@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -38,6 +40,7 @@ public class PIT_Details {
 	
 	@ManyToOne
     @JoinColumn(name = "ievolve_id", referencedColumnName = "ievolveId")
+	//@JsonIgnore
 	private Ievolve_Course_Details course;	
 	
 	/*private Integer faculty_id;
@@ -69,9 +72,11 @@ public class PIT_Details {
 	public void setTechnology(String technology) {
 		this.technology = technology;
 	}
+	//@JsonIgnore
 	public Ievolve_Course_Details getCourse() {
 		return course;
 	}
+	//@JsonIgnore
 	public void setCourse(Ievolve_Course_Details course) {
 		this.course = course;
 	}
