@@ -199,7 +199,8 @@ public class PitService {
 					}
 					this.submitPitParticipants(participantDetails);
 					response.setResponseCode("0");
-					response.setResponseMessage("Pit Submission Sucessfull");
+					response.setPitId(corePitData.getPit_id());
+					response.setResponseMessage("Pit successfully created");
 					return response;
 				}catch(Exception e) {
 					response.setResponseCode("-50");

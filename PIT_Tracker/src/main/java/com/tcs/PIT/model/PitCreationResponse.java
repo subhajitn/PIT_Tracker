@@ -4,6 +4,7 @@ public class PitCreationResponse {
 
 	private String responseCode;
 	private String responseMessage;
+	private Long pitId;
 	public String getResponseCode() {
 		return responseCode;
 	}
@@ -16,9 +17,15 @@ public class PitCreationResponse {
 	public void setResponseMessage(String responseMessage) {
 		this.responseMessage = responseMessage;
 	}
+	public Long getPitId() {
+		return pitId;
+	}
+	public void setPitId(Long pitId) {
+		this.pitId = pitId;
+	}
 	@Override
 	public String toString() {
-		return "PitCreationResponse [responseCode=" + responseCode + ", responseMessage=" + responseMessage + "]";
+		return "PitCreationResponse [responseCode=" + responseCode + ", responseMessage=" + responseMessage + ", pitId=" + pitId + "]";
 	}
 	
 }
