@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tcs</groupId>
-	<artifactId>PIT</artifactId>
+	<artifactId>PITServices</artifactId>
 	<version>0.0.1</version>
 	<name>PITServices</name>
 	<description>Demo project for Spring Boot</description>
