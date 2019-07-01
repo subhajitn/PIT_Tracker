@@ -65,7 +65,7 @@
 	                <webResources>
 	                    <resource>
 	                        <directory>${project.basedir}/lib</directory>
-	                        <targetPath>WEB-INF/lib</targetPath>
+	                        <targetPath>BOOT-INF/lib</targetPath>
 	                        <includes>
 	                            <include>**/*.jar</include>
 	                        </includes>
