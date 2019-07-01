@@ -46,6 +46,7 @@
 		    <groupId>com.oracle</groupId>
 		    <artifactId>ojdbc6</artifactId>
 			<version>11.2.0.3</version>
+			<!-- <scope>provided</scope> -->
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/ojdbc6-11.2.0.3.jar</systemPath>
 		</dependency>		
@@ -56,6 +57,29 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <configuration>
+	                <webResources>
+	                    <resource>
+	                        <directory>${project.basedir}/lib</directory>
+	                        <targetPath>WEB-INF/lib</targetPath>
+	                        <includes>
+	                            <include>**/*.jar</include>
+	                        </includes>
+	                    </resource>
+	                </webResources>
+	            </configuration>
+	        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 		<finalName>${artifactId}</finalName>
