@@ -175,6 +175,11 @@ public class PitService {
 						response.setResponseMessage("Participant details is invalid");
 						return response;
 					}
+					if(null!=participant && (null==participant.getCompletion_status() || (null!=participant.getCompletion_status()&& participant.getCompletion_status().equalsIgnoreCase("")))){
+						response.setResponseCode("-700");
+						response.setResponseMessage("Participant Completion Status is invalid");
+						return response;
+					}
 				}
 				PIT_Details corePitData=new PIT_Details();
 				Ievolve_Course_Details courseData=new Ievolve_Course_Details();

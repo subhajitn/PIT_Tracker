@@ -39,7 +39,7 @@ public class PIT_Participants_Details {
 		this.participant = participant;
 	}	
 	
-	public String isCompletion_status() {
+	public String getCompletion_status() {
 		return completion_status;
 	}
 	public void setCompletion_status(String completion_status) {
